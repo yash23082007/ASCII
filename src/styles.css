@@ -2,13 +2,14 @@
 @import "./styles/glass.css";
 @import "./styles/animations.css";
 
+/* ─── App Shell ─── */
 .app-shell { position: relative; z-index: 2; }
 .content-shell { min-height: 80vh; }
 
-/* Re-export commonly-used helper classes */
+/* ─── Utility: eyebrow label ─── */
 .eyebrow {
   font-size: var(--text-xs);
-  color: var(--accent-glow);
+  color: var(--text-secondary);
   font-weight: 500;
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
@@ -16,14 +17,98 @@
   margin: 0;
 }
 
+/* ─── Page layout ─── */
 .page {
   display: grid;
-  gap: var(--space-8);
-  padding: var(--space-4) 0 var(--space-12);
+  gap: var(--space-10);
+  padding: var(--space-6) 0 var(--space-16);
 }
 
+/* ─── Section heading pattern ─── */
+.section-header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.section-header .eyebrow {
+  color: var(--text-muted);
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-4xl);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+/* ─── Responsive grid collapse ─── */
 @media (max-width: 900px) {
   .page > section > div[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
   }
+}
+
+@media (max-width: 768px) {
+  .page {
+    gap: var(--space-8);
+    padding: var(--space-4) 0 var(--space-12);
+  }
+}
+
+/* ─── Mono canvas container ─── */
+.mono-canvas {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.15;
+  color: var(--mono-fg);
+  background: var(--mono-bg);
+  white-space: pre;
+  overflow: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-muted);
+  position: relative;
+}
+
+.mono-canvas::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.008) 2px,
+    rgba(255, 255, 255, 0.008) 4px
+  );
+}
+
+/* ─── Form inputs ─── */
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-visible);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  outline: none;
+  font-size: var(--text-sm);
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.form-input:focus {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Separator with ASCII art ─── */
+.ascii-separator {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  padding: var(--space-2) 0;
+  opacity: 0.6;
 }

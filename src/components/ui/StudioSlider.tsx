@@ -27,7 +27,7 @@ export function StudioSlider({ label, value, min, max, step = 1, onChange, forma
     <div style={{ display: "grid", gap: "0.5rem" }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--text-xs)", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
         <span>{label}</span>
-        <span>{formatValue ? formatValue(value) : value}</span>
+        <span style={{ fontFamily: "var(--font-mono)", color: "var(--text-primary)" }}>{formatValue ? formatValue(value) : value}</span>
       </div>
       <div
         ref={railRef}
@@ -38,7 +38,8 @@ export function StudioSlider({ label, value, min, max, step = 1, onChange, forma
         aria-valuemax={max}
         aria-label={label}
         style={{
-          position: "relative", height: 6, borderRadius: 999, background: "var(--bg-raised)", cursor: "pointer", touchAction: "none",
+          position: "relative", height: 4, borderRadius: 999,
+          background: "var(--bg-overlay)", cursor: "pointer", touchAction: "none",
         }}
         onPointerDown={(e) => { handlePointer(e.clientX); (e.target as HTMLElement).setPointerCapture(e.pointerId); }}
         onPointerMove={(e) => { if (e.buttons > 0) handlePointer(e.clientX); }}
@@ -47,14 +48,24 @@ export function StudioSlider({ label, value, min, max, step = 1, onChange, forma
           if (e.key === "ArrowLeft" || e.key === "ArrowDown") onChange(Math.max(min, value - step));
         }}
       >
-        <div style={{ height: "100%", borderRadius: 999, background: "linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))", width: `${pct}%`, transition: "width 0.08s ease" }} />
-        <div
-          style={{
-            position: "absolute", top: "50%", left: `${pct}%`, width: 18, height: 18, borderRadius: "50%",
-            background: "#fff", transform: "translate(-50%, -50%)", boxShadow: "0 0 0 3px var(--accent-primary)",
-            transition: "left 0.08s ease",
-          }}
-        />
+        {/* Filled track */}
+        <div style={{
+          height: "100%", borderRadius: 999,
+          background: "#fff",
+          width: `${pct}%`,
+          transition: "width 0.06s ease",
+          boxShadow: "0 0 8px rgba(255,255,255,0.2)",
+        }} />
+        {/* Thumb */}
+        <div style={{
+          position: "absolute", top: "50%", left: `${pct}%`,
+          width: 14, height: 14, borderRadius: "50%",
+          background: "#fff",
+          border: "2px solid var(--bg-void)",
+          boxShadow: "0 0 10px rgba(255,255,255,0.3), 0 2px 6px rgba(0,0,0,0.5)",
+          transform: "translate(-50%, -50%)",
+          transition: "left 0.06s ease",
+        }} />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export function HUDOverlay({ mode, fps, density, quality }: HUDOverlayProps) {
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", gap: "0.5rem" }}>
         <span style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Quality</span>
-        <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-tertiary)", fontFamily: "var(--font-mono)", fontWeight: 600 }}>{quality}%</span>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontFamily: "var(--font-mono)", fontWeight: 600 }}>{quality}%</span>
       </div>
     </div>
   );

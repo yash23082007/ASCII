@@ -6,14 +6,16 @@ import { FeatureCards } from "../components/home/FeatureCards";
 import { ArchDiagram } from "../components/home/ArchDiagram";
 import { GalleryMarquee } from "../components/home/GalleryMarquee";
 import { CTASection } from "../components/home/CTASection";
-import { staggerContainer, fadeUp, slideFromRight, scaleIn } from "../lib/motion-variants";
+import { LiveDemo } from "../components/home/LiveDemo";
+import { HowItWorks } from "../components/home/HowItWorks";
+import { Testimonials } from "../components/home/Testimonials";
+import { staggerContainer, fadeUp, slideFromRight } from "../lib/motion-variants";
 import { GlowButton } from "../components/ui/GlowButton";
-
-const entranceDelay = [0, 100, 200, 320, 440, 560, 680, 800];
 
 export function HomePage() {
   return (
     <div className="page" style={{ paddingTop: 0 }}>
+      {/* 1. Hero Section */}
       <section style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-8)", alignItems: "center" }}>
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" style={{ display: "grid", gap: "var(--space-4)" }}>
           <motion.span variants={fadeUp} transition={{ delay: 0.1 }} style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontWeight: 500, letterSpacing: "var(--tracking-widest)", textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>
@@ -24,7 +26,7 @@ export function HomePage() {
             <br />
             Media Into
             <br />
-            <span style={{ background: "linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", textShadow: "none" }}>
+            <span style={{ background: "linear-gradient(135deg, var(--accent-primary), var(--accent-dim))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", textShadow: "none" }}>
               Intelligent Text Art.
             </span>
           </motion.h1>
@@ -55,6 +57,7 @@ export function HomePage() {
         </motion.div>
       </section>
 
+      {/* 2. Value Proposition Section */}
       <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="glass-card" style={{ padding: "var(--space-8) var(--space-10)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-8)", alignItems: "center", margin: "var(--space-8) 0" }}>
         <div>
           <p style={{ fontSize: "var(--text-base)", color: "var(--text-secondary)", fontStyle: "italic", lineHeight: 1.7 }}>
@@ -68,6 +71,12 @@ export function HomePage() {
         </div>
       </motion.section>
 
+      {/* 3. Live Interactive Demo Section */}
+      <section>
+        <LiveDemo />
+      </section>
+
+      {/* 4. Features Section */}
       <section style={{ display: "grid", gap: "var(--space-6)" }}>
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
           <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontWeight: 500, letterSpacing: "var(--tracking-widest)", textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>// 01  FEATURES</span>
@@ -78,6 +87,12 @@ export function HomePage() {
         <FeatureCards />
       </section>
 
+      {/* 5. How It Works Section */}
+      <section>
+        <HowItWorks />
+      </section>
+
+      {/* 6. System Architecture Section */}
       <section style={{ display: "grid", gap: "var(--space-6)" }}>
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
           <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontWeight: 500, letterSpacing: "var(--tracking-widest)", textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>// 02  ARCHITECTURE</span>
@@ -88,6 +103,12 @@ export function HomePage() {
         <ArchDiagram />
       </section>
 
+      {/* 7. Testimonials Section */}
+      <section>
+        <Testimonials />
+      </section>
+
+      {/* 8. Showcase Gallery Section */}
       <section style={{ display: "grid", gap: "var(--space-6)" }}>
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
           <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontWeight: 500, letterSpacing: "var(--tracking-widest)", textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>// 03  GALLERY</span>
@@ -98,6 +119,7 @@ export function HomePage() {
         <GalleryMarquee />
       </section>
 
+      {/* 9. CTA & Newsletter Section */}
       <CTASection />
     </div>
   );

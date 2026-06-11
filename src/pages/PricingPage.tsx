@@ -5,83 +5,183 @@ import { Check, X } from "lucide-react";
 
 const tiers = [
   {
-    name: "Free", price: "$0", desc: "For casual exploration", features: ["Basic ASCII conversion", "Image upload only", "TXT export", "Community gallery"],
-    locked: ["Video processing", "Webcam streaming", "ML auto-optimize", "PNG/PDF export", "Priority support"],
-    accent: "var(--text-muted)",
+    name: "Standard License",
+    price: "$0",
+    desc: "For local creative exploration",
+    features: [
+      "Full raster rendering pipeline",
+      "Static image file uploading",
+      "Direct TXT/ASCII art downloading",
+      "Access to public archive gallery",
+    ],
+    locked: [
+      "Live camera stream conversion",
+      "High-speed video rendering loops",
+      "Auto-Tune image parameters",
+      "HTML & PNG high-res exporting",
+      "Multiple simultaneous setups",
+    ],
+    accent: "var(--text-secondary)",
   },
   {
-    name: "Pro", price: "$9", period: "/mo", desc: "For creators and developers", popular: true,
-    features: ["All conversion modes", "Video & GIF support", "Webcam streaming", "ML auto-optimize", "PNG, HTML, PDF export", "Project history"],
+    name: "Professional Studio",
+    price: "$9",
+    period: "/mo",
+    desc: "For digital creators and developers",
+    popular: true,
+    features: [
+      "All active conversion modes",
+      "WebRTC camera feed conversion",
+      "Video & GIF loop processing",
+      "Smart Auto-Tune presets",
+      "Export as TXT, HTML, and PNG",
+      "Local setup config history",
+    ],
     locked: [],
-    accent: "var(--accent-primary)",
+    accent: "var(--accent-glow)",
   },
   {
-    name: "API", price: "Custom", desc: "For integration into your product",
-    features: ["REST API access", "Batch processing", "Custom models", "Dedicated support", "SLA", "On-premise option"],
+    name: "Enterprise Core",
+    price: "Custom",
+    desc: "For dedicated pipeline integration",
+    features: [
+      "REST API access credentials",
+      "Server-side batch rasterization",
+      "Isolated GPU pipelines",
+      "Custom symbol map files",
+      "24/7 dedicated system support",
+      "On-premise offline deployment",
+    ],
     locked: [],
-    accent: "var(--accent-secondary)",
+    accent: "var(--text-primary)",
   },
 ];
 
 export function PricingPage() {
   return (
-    <div className="page" style={{ placeItems: "center" }}>
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: "center", display: "grid", gap: "var(--space-2)" }}>
+    <div className="page" style={{ placeItems: "center", paddingTop: 0 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ textAlign: "center", display: "grid", gap: "var(--space-2)", borderBottom: "1px solid var(--border-muted)", paddingBottom: "var(--space-4)", marginBottom: "var(--space-4)", width: "100%" }}
+      >
         <span style={{ fontSize: "var(--text-xs)", color: "var(--accent-glow)", fontWeight: 500, letterSpacing: "var(--tracking-widest)", textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>
-          PRICING
+          LICENSE REGISTRY
         </span>
-        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-4xl)" }}>Choose your plan.</h1>
-        <p style={{ color: "var(--text-secondary)", maxWidth: "48ch" }}>Start free. Upgrade when you need more power.</p>
+        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--text-3xl)", margin: 0 }}>
+          Choose your licensing model
+        </h1>
+        <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)", margin: 0 }}>
+          Get started instantly on standard hardware. Scale up as your rendering complexity increases.
+        </p>
       </motion.div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)", width: "100%" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-4)", width: "100%" }}>
         {tiers.map((tier, i) => {
           const inner = (
             <>
               {tier.popular && (
-                <span style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", padding: "0.3rem 1rem", borderRadius: 999, background: "var(--accent-primary)", color: "#fff", fontSize: "var(--text-xs)", fontWeight: 600, letterSpacing: "0.08em" }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    top: -12,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    padding: "0.3rem 1rem",
+                    borderRadius: 999,
+                    background: "var(--accent-primary)",
+                    color: "#000000",
+                    fontSize: "10px",
+                    fontFamily: "var(--font-mono)",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    boxShadow: "0 0 12px rgba(255,255,255,0.4)",
+                  }}
+                >
                   MOST POPULAR
                 </span>
               )}
-              <div>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-xl)" }}>{tier.name}</h3>
-                <div style={{ fontSize: "var(--text-hero)", fontWeight: 700, color: tier.accent, letterSpacing: "var(--tracking-tight)" }}>
-                  {tier.price}<span style={{ fontSize: "var(--text-base)", color: "var(--text-muted)", fontWeight: 400 }}>{tier.period || ""}</span>
+              <div style={{ display: "grid", gap: "0.25rem" }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-lg)", color: "var(--text-primary)", margin: 0 }}>
+                  {tier.name}
+                </h3>
+                <div style={{ fontSize: "var(--text-4xl)", fontWeight: 700, color: tier.accent, letterSpacing: "var(--tracking-tight)", display: "flex", alignItems: "baseline", gap: "0.25rem" }}>
+                  {tier.price}
+                  {tier.period && (
+                    <span style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", fontWeight: 400 }}>
+                      {tier.period}
+                    </span>
+                  )}
                 </div>
-                <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>{tier.desc}</p>
+                <p style={{ fontSize: "var(--text-xs)", color: "var(--text-secondary)", margin: 0 }}>
+                  {tier.desc}
+                </p>
               </div>
-              <div style={{ display: "grid", gap: "var(--space-2)" }}>
+
+              <hr style={{ border: 0, borderTop: "1px solid var(--border-muted)", width: "100%" }} />
+
+              <div style={{ display: "grid", gap: "0.6rem" }}>
                 {tier.features.map((f) => (
-                  <div key={f} style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "var(--text-sm)", color: "var(--text-primary)" }}>
-                    <Check size={14} color="var(--success)" />
-                    {f}
+                  <div key={f} style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "var(--text-xs)", color: "var(--text-primary)" }}>
+                    <Check size={12} color="var(--success)" style={{ flexShrink: 0 }} />
+                    <span style={{ lineHeight: 1.3 }}>{f}</span>
                   </div>
                 ))}
                 {tier.locked.map((f) => (
-                  <div key={f} style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
-                    <X size={14} color="var(--text-muted)" />
-                    {f}
+                  <div key={f} style={{ display: "flex", gap: "0.5rem", alignItems: "center", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
+                    <X size={12} color="var(--text-muted)" style={{ flexShrink: 0 }} />
+                    <span style={{ lineHeight: 1.3 }}>{f}</span>
                   </div>
                 ))}
               </div>
-              <GlowButton variant={tier.popular ? "primary" : "secondary"} size="lg" onClick={() => {}}>
-                {tier.name === "Free" ? "Get Started" : tier.name === "Pro" ? "Subscribe" : "Contact Us"}
-              </GlowButton>
+
+              <div style={{ marginTop: "auto", paddingTop: "var(--space-4)" }}>
+                <GlowButton
+                  variant={tier.popular ? "primary" : "secondary"}
+                  size="md"
+                  onClick={() => {}}
+                  style={{ width: "100%", textAlign: "center" }}
+                >
+                  {tier.name.includes("Standard") ? "Launch Studio" : tier.name.includes("Professional") ? "Acquire License" : "Contact Sales"}
+                </GlowButton>
+              </div>
             </>
           );
 
           if (tier.popular) {
-            return <SpinBorderPanel key={tier.name} style={{ padding: "var(--space-6)", display: "grid", gap: "var(--space-4)", position: "relative" } as React.CSSProperties}>{inner}</SpinBorderPanel>;
+            return (
+              <SpinBorderPanel
+                key={tier.name}
+                style={{
+                  padding: "var(--space-6)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-4)",
+                  position: "relative",
+                  height: "100%",
+                }}
+              >
+                {inner}
+              </SpinBorderPanel>
+            );
           }
 
           return (
-            <motion.div key={tier.name}
+            <motion.div
+              key={tier.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] as any }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
               className="glass-card"
-              style={{ padding: "var(--space-6)", display: "grid", gap: "var(--space-4)", position: "relative" } as React.CSSProperties}
+              style={{
+                padding: "var(--space-6)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-4)",
+                position: "relative",
+                borderColor: "var(--border-muted)",
+              }}
             >
               {inner}
             </motion.div>

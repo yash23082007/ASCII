@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { GlowButton } from "../components/ui/GlowButton";
 
 export function NotFoundPage() {
   return (
-    <div className="page" style={{ placeItems: "center", minHeight: "60vh", textAlign: "center" }}>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ display: "grid", gap: "var(--space-6)", placeItems: "center" }}>
+    <div className="page" style={{ placeItems: "center", minHeight: "70vh", textAlign: "center", paddingTop: "var(--space-8)" }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        style={{ display: "grid", gap: "var(--space-6)", placeItems: "center" }}
+      >
         <div style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-lg)", lineHeight: 1.6, color: "var(--accent-glow)", letterSpacing: "0.05em" }}>
           <motion.div
             animate={{ x: [0, -3, 3, -2, 2, 0] }}
@@ -19,13 +23,19 @@ export function NotFoundPage() {
             <div>- - - - - - - - - - - - - -</div>
           </motion.div>
         </div>
+
         <div>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-2xl)" }}>404 — This frame got corrupted.</h1>
-          <p style={{ fontSize: "var(--text-base)", color: "var(--text-secondary)", marginTop: "var(--space-2)" }}>The page you're looking for doesn't exist or was moved.</p>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--text-2xl)", color: "var(--text-primary)", margin: 0 }}>
+            404 — Frame Corrupted
+          </h1>
+          <p style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)", marginTop: "var(--space-2)", marginBottom: 0 }}>
+            The requested console index could not be located on this client branch.
+          </p>
         </div>
-        <Link to="/studio">
-          <GlowButton variant="primary" size="lg">Return to Studio →</GlowButton>
-        </Link>
+
+        <GlowButton to="/studio" variant="primary" size="lg">
+          Return to Studio →
+        </GlowButton>
       </motion.div>
     </div>
   );

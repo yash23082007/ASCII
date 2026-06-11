@@ -1,28 +1,43 @@
 interface StatusDotProps {
-  status?: "success" | "warning" | "error" | "info";
+  status?: "success" | "warning" | "error" | "info" | "idle";
   label?: string;
+  pulse?: boolean;
 }
 
-const colors = {
+const colors: Record<string, string> = {
   success: "var(--success)",
   warning: "var(--warning)",
   error: "var(--error)",
   info: "var(--info)",
+  idle: "var(--text-muted)",
 };
 
-export function StatusDot({ status = "success", label }: StatusDotProps) {
+export function StatusDot({ status = "success", label, pulse = true }: StatusDotProps) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "var(--text-xs)", color: "var(--text-muted)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
       <span
         style={{
-          width: 8, height: 8, borderRadius: "50%",
+          width: 7,
+          height: 7,
+          borderRadius: "50%",
           background: colors[status],
-          boxShadow: `0 0 0 0 ${colors[status]}66`,
-          animation: "pulse-dot 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite",
           display: "inline-block",
+          flexShrink: 0,
+          animation: pulse ? "pulse-dot 2.5s infinite" : "none",
+          boxShadow: `0 0 6px ${colors[status]}`,
         }}
       />
-      {label}
-    </span>
+      {label && (
+        <span style={{
+          fontSize: "var(--text-xs)",
+          color: colors[status],
+          fontWeight: 600,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+        }}>
+          {label}
+        </span>
+      )}
+    </div>
   );
 }

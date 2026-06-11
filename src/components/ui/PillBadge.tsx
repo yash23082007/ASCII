@@ -4,10 +4,10 @@ interface PillBadgeProps {
 }
 
 const colors = {
-  default: { bg: "rgba(255,255,255,0.04)", border: "var(--border-muted)", color: "var(--text-secondary)" },
-  accent: { bg: "rgba(99,102,241,0.12)", border: "rgba(99,102,241,0.24)", color: "var(--accent-glow)" },
-  success: { bg: "rgba(52,211,153,0.10)", border: "rgba(52,211,153,0.22)", color: "var(--success)" },
-  violet: { bg: "rgba(167,139,250,0.10)", border: "rgba(167,139,250,0.22)", color: "var(--accent-secondary)" },
+  default: { bg: "rgba(255,255,255,0.02)", border: "var(--border-muted)", color: "var(--text-secondary)" },
+  accent: { bg: "rgba(255,255,255,0.06)", border: "var(--border-accent)", color: "var(--accent-glow)" },
+  success: { bg: "rgba(138,255,138,0.06)", border: "rgba(138,255,138,0.18)", color: "var(--success)" },
+  violet: { bg: "rgba(255,255,255,0.04)", border: "var(--border-visible)", color: "var(--text-primary)" },
 };
 
 export function PillBadge({ children, variant = "default" }: PillBadgeProps) {

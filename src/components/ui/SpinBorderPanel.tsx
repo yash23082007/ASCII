@@ -1,39 +1,32 @@
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties } from "react";
 
 interface SpinBorderPanelProps {
   children: ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
+  id?: string;
 }
 
-export function SpinBorderPanel({ children, className = "", style }: SpinBorderPanelProps) {
+export function SpinBorderPanel({ children, style, id }: SpinBorderPanelProps) {
   return (
-    <motion.div
-      className={className}
+    <div
+      id={id}
       style={{
-        position: "relative", borderRadius: "var(--radius-xl)",
-        padding: "var(--space-16) var(--space-12)",
-        background: "var(--bg-raised)",
-        overflow: "hidden",
+        position: "relative",
+        borderRadius: "var(--radius-xl)",
+        padding: "1px",
+        background: `conic-gradient(from var(--angle, 0deg), transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%)`,
+        animation: "spin-border 4s linear infinite",
         ...style,
       }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div
-        style={{
-          position: "absolute", inset: -1, borderRadius: "inherit",
-          background: "conic-gradient(from var(--angle, 0deg), transparent 0deg, var(--accent-primary) 60deg, var(--accent-secondary) 120deg, transparent 180deg)",
-          animation: "spin-border 4s linear infinite",
-          zIndex: 0, pointerEvents: "none",
-        }}
-      />
-      <div style={{ position: "relative", zIndex: 1, borderRadius: "inherit" }}>
+      <div style={{
+        background: "var(--bg-base)",
+        borderRadius: "calc(var(--radius-xl) - 1px)",
+        padding: "var(--space-8)",
+        position: "relative",
+      }}>
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 }

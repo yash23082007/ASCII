@@ -542,3 +542,93 @@ function dataUrlToBlob(dataUrl: string) {
 
   return new Blob([bytes], { type: mime });
 }
+
+export function qualityScore(result: AsciiRenderResult): {
+  overall: number;
+  detail: {
+    brightness: number;
+    contrast: number;
+    coverage: number;
+    complexity: number;
+  };
+} {
+  const detail = {
+    brightness:
+      result.averageBrightness > 0
+        ? Math.round(100 - Math.abs(result.averageBrightness - 128) / 1.28)
+        : 0,
+    contrast: Math.round(Math.min(100, result.brightnessVariance / 2.6)),
+    coverage:
+      result.charCount > 0
+        ? Math.round(Math.min(100, (result.charCount / 10) * 100))
+        : 0,
+    complexity:
+      result.estimatedQuality > 0
+        ? Math.round(
+            Math.min(
+              100,
+              (result.estimatedQuality / 100) * 50 +
+                (result.charCount / 15) * 30 +
+                (result.brightnessVariance / 300) * 20,
+            ),
+          )
+        : 0,
+  };
+  const overall = Math.round(
+    (detail.brightness + detail.contrast + detail.coverage + detail.complexity) / 4,
+  );
+  return { overall, detail };
+}
+
+export function edgeDensity(
+  source: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement,
+  settings: StudioSettings,
+): number {
+  const { width, height } = getSourceDimensions(source);
+  if (!width || !height) return 0;
+
+  const sampleSize = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = sampleSize;
+  canvas.height = sampleSize;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return 0;
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(source, 0, 0, sampleSize, sampleSize);
+  const { data } = ctx.getImageData(0, 0, sampleSize, sampleSize);
+
+  let edges = 0;
+  let total = 0;
+
+  for (let y = 1; y < sampleSize - 1; y++) {
+    for (let x = 1; x < sampleSize - 1; x++) {
+      const idx = (y * sampleSize + x) * 4;
+      const cx = sampleLuminance(data[idx], data[idx + 1], data[idx + 2]);
+      const nx = sampleLuminance(
+        data[(y * sampleSize + x + 1) * 4],
+        data[(y * sampleSize + x + 1) * 4 + 1],
+        data[(y * sampleSize + x + 1) * 4 + 2],
+      );
+      const ny = sampleLuminance(
+        data[((y + 1) * sampleSize + x) * 4],
+        data[((y + 1) * sampleSize + x) * 4 + 1],
+        data[((y + 1) * sampleSize + x) * 4 + 2],
+      );
+      const gx = Math.abs(cx - nx);
+      const gy = Math.abs(cx - ny);
+      if (gx > 24 || gy > 24) edges++;
+      total++;
+    }
+  }
+
+  return total > 0 ? Math.round((edges / total) * 100) : 0;
+}
+
+export function autoTune(
+  source: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement,
+  mode: RenderMode,
+): Partial<StudioSettings> {
+  const stats = measureSourceStats(source);
+  return suggestSettingsFromStats(stats, mode);
+}
